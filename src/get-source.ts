@@ -108,7 +108,12 @@ function getPropType(expect: Expect): string {
   if (expect.type === 'number') return 'number';
   if (expect.type === 'path') return 'string';
   if (expect.type === 'ratio') return 'number';
-  if (expect.type === 'string') return 'string';
+  if (expect.type === 'string') {
+    if ('possible_values' in expect) {
+      return expect.possible_values.map((s) => `'${s}'`).join(' | ');
+    }
+    return 'string';
+  }
   if (expect.type === 'timestamp') return 'string';
   if (expect.type === 'unit_scalar') return 'number';
   if (expect.type === 'url') return 'string';
