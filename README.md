@@ -2,10 +2,10 @@
 
 > TypeScript definitions of imgix's URL parameters.
 
-![NPM version](http://img.shields.io/npm/v/typescript-imgix-url-params.svg?style=flat-square)](https://www.npmjs.com/package/typescript-imgix-url-params)
+[![NPM version](http://img.shields.io/npm/v/typescript-imgix-url-params.svg?style=flat-square)](https://www.npmjs.com/package/typescript-imgix-url-params)
 [![NPM downloads](http://img.shields.io/npm/dm/typescript-imgix-url-params.svg?style=flat-square)](https://www.npmjs.com/package/typescript-imgix-url-params)
-[![Build Status](https://img.shields.io/github/workflow/status/JamieMason/typescript-imgix-url-params/ci)](https://github.com/JamieMason/typescript-imgix-url-params/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/516439365fdd0e3c6526/maintainability)](https://codeclimate.com/github/JamieMason/typescript-imgix-url-params/maintainability)
+[![Follow JamieMason on GitHub](https://img.shields.io/github/followers/JamieMason.svg?style=social&label=Follow)](https://github.com/JamieMason)
+[![Follow fold_left on Twitter](https://img.shields.io/twitter/follow/fold_left.svg?style=social&label=Follow)](https://twitter.com/fold_left)
 
 ## 🌩 Installation
 
