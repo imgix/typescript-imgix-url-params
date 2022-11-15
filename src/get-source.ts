@@ -89,9 +89,14 @@ function getFontValueType(schema: Schema): string {
 
 function getPropTypes({ expects }: ParamSpec): string {
   if (!Array.isArray(expects)) return 'unknown';
-  return Array.from(new Set(expects.map((expect) => getPropType(expect)))).join(
-    ' | ',
+  const types = Array.from(
+    new Set(expects.map((expect) => getPropType(expect))),
   );
+  return (
+    types.length > 1 && types.includes('unknown')
+      ? types.filter((type) => type !== 'unknown')
+      : types
+  ).join(' | ');
 }
 
 function getPropType(expect: Expect): string {
