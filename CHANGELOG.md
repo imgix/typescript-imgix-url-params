@@ -1,3 +1,12 @@
+## [0.3.1](https://github.com/JamieMason/typescript-imgix-url-params/compare/0.3.0...0.3.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* **types:** use `Partial` type to set all parameters as optional ([83b9c82](https://github.com/JamieMason/typescript-imgix-url-params/commit/83b9c82957be509fa87dcfc5ecec75882d007f34)), closes [#1](https://github.com/JamieMason/typescript-imgix-url-params/issues/1)
+
+
+
 # [0.3.0](https://github.com/JamieMason/typescript-imgix-url-params/compare/0.1.0...0.3.0) (2022-11-15)
 
 

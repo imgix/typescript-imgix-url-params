@@ -1,7 +1,7 @@
 {
   "name": "typescript-imgix-url-params",
   "description": "TypeScript definitions of imgix's URL parameters",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Jamie Mason <jamie@foldleft.io> (https://github.com/JamieMason)",
   "bugs": "https://github.com/JamieMason/typescript-imgix-url-params/issues",
   "devDependencies": {
