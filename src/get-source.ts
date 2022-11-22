@@ -68,7 +68,7 @@ function getParamsInterface(
     return [tsdoc, `'${key}': ${type};`].join('\n');
   });
 
-  return [`export interface ${name} {`, ...props, '}'].join('\n\n');
+  return [`export type ${name} = Partial<{`, ...props, '}>'].join('\n\n');
 }
 
 function getHexColorType(): string {

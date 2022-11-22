@@ -23,7 +23,7 @@ This package was created on 15 Nov 2022, it is new but please give it a try and
 ```ts
 import type { ImgixUrl } from 'typescript-imgix-url-params';
 
-const params: Partial<ImgixUrl.Params> = {
+const params: ImgixUrl.Params = {
   w: 100,
   h: 100,
   fm: 'pjpg',
