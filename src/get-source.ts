@@ -36,9 +36,9 @@ export function getTypes(): string {
 function getImgixUrlParamsType(schema: Schema): string {
   return `
   /** @see {@link https://docs.imgix.com/apis/rendering} */
-  export type Params = ${schema.categoryValues
+  export type Params = Partial<${schema.categoryValues
     .map((category) => getCategoryInterfaceName(category))
-    .join(' & ')}`;
+    .join(' & ')}>`;
 }
 
 function getCategoryInterfaceName(category: CategoryValue): string {
