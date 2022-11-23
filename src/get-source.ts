@@ -58,10 +58,10 @@ function getParamsInterface(
 ): string {
   const props: string[] = entries.map(([key, value]) => {
     const type = getPropTypes(value);
-    let dependencies: string[][] = [];
+    // construct dependency list per parameter
     let dependencyTsdocLines: string[] = [];
     if ('depends' in value) {
-      value.depends.map((depend: string) => dependencies.push([depend.includes("=") ? depend.split("=")[0] : depend, depend]))
+      const dependencies: string[][] = Array.from(value.depends.map((depend: string) => [depend.includes("=") ? depend.split("=")[0] : depend, depend]))
       dependencyTsdocLines = Array.from(dependencies.map(dependency => `@see Depends on: {@link ${dependency[0]} | ${dependency[1]}}`));
     }
 
