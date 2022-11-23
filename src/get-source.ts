@@ -36,9 +36,9 @@ export function getTypes(): string {
 function getImgixUrlParamsType(schema: Schema): string {
   return `
   /** @see {@link https://docs.imgix.com/apis/rendering} */
-  export type Params = ${schema.categoryValues
+  export type Params = Partial<${schema.categoryValues
     .map((category) => getCategoryInterfaceName(category))
-    .join(' & ')}`;
+    .join(' & ')}>`;
 }
 
 function getCategoryInterfaceName(category: CategoryValue): string {
@@ -68,7 +68,8 @@ function getParamsInterface(
     return [tsdoc, `'${key}': ${type};`].join('\n');
   });
 
-  return [`export type ${name} = Partial<{`, ...props, '}>'].join('\n\n');
+  // return [`export type ${name} = Partial<{`, ...props, '}>'].join('\n\n');
+  return [`export interface ${name} {`, ...props, '}'].join('\n\n');
 }
 
 function getHexColorType(): string {
