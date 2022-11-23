@@ -113,7 +113,7 @@ function getPropType(expect: Expect): string {
     return expect.possible_values.map((s) => `'${s}'`).join(' | ');
   if (expect.type === 'number') return 'number';
   if (expect.type === 'path') return 'string';
-  if (expect.type === 'ratio') return 'number';
+  if (expect.type === 'ratio') return 'number | `${string}:${string}`';
   if (expect.type === 'string') {
     if ('possible_values' in expect) {
       return expect.possible_values.map((s) => `'${s}'`).join(' | ');
