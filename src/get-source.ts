@@ -58,8 +58,16 @@ function getParamsInterface(
 ): string {
   const props: string[] = entries.map(([key, value]) => {
     const type = getPropTypes(value);
+    let dependencies: string[][] = [];
+    let dependencyTsdocLines: string[] = [];
+    if ('depends' in value) {
+      value.depends.map((depend: string) => dependencies.push([depend.includes("=") ? depend.split("=")[0] : depend, depend]))
+      dependencyTsdocLines = Array.from(dependencies.map(dependency => `@see Depends on: {@link ${dependency[0]} | ${dependency[1]}}`));
+    }
+
     const tsdocLines = [
       value.short_description,
+      ...dependencyTsdocLines,
       'url' in value && `@see {@link ${value.url}}`,
     ]
       .filter(Boolean)
