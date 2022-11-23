@@ -17,6 +17,28 @@ export function getSource(): string {
 
 export function getTypes(): string {
   const allEntries: [string, ParamSpec][] = Object.entries(schema.parameters);
+  const allEntriesWithAliases = [...allEntries];
+
+  allEntries.map(([_key, value]) => {
+    if ('aliases' in value) {
+      let cleanedValue: any = value; // ideally, don't do this
+      value.aliases.map((alias) => {
+        delete cleanedValue?.aliases;
+        allEntriesWithAliases.push([alias, cleanedValue as ParamSpec])
+      })
+    }
+  })
+
+  // allEntriesWithAliases.map(([k,v]) => {
+  //   console.log(k, v);
+  // });
+
+
+  // allEntries.filter(([_key, value]) => Object.).map(([_key, value]) => {
+  //   console.log('key', _key);
+  //   'aliases' in value ? console.log('aliases', value.aliases) : '';
+  //   // value.filter(aliases?.map(alias => console.log(alias))
+  // })
   return [
     getHexColorType(),
     getColorKeywordValueType(schema),
@@ -26,7 +48,7 @@ export function getTypes(): string {
         `/** @see {@link https://docs.imgix.com/apis/rendering/${category}} */
         ${getParamsInterface(
           getCategoryInterfaceName(category),
-          allEntries.filter(([_key, value]) => value.category === category),
+          allEntriesWithAliases.filter(([_key, value]) => value.category === category),
         )}`,
     ),
     getImgixUrlParamsType(schema),
@@ -58,6 +80,13 @@ function getParamsInterface(
 ): string {
   const props: string[] = entries.map(([key, value]) => {
     const type = getPropTypes(value);
+
+    // construct alias list per parameter
+    let aliasTsdocLins: string[] = [];
+    if('aliases' in value) {
+      aliasTsdocLins = Array.from(value.aliases.map((alias: string) => `@see alias - ${alias}`))
+    }
+
     // construct dependency list per parameter
     let dependencyTsdocLines: string[] = [];
     if ('depends' in value) {
@@ -68,6 +97,7 @@ function getParamsInterface(
     const tsdocLines = [
       value.short_description,
       ...dependencyTsdocLines,
+      ...aliasTsdocLins,
       'url' in value && `@see {@link ${value.url}}`,
     ]
       .filter(Boolean)
