@@ -19,26 +19,38 @@ export function getTypes(): string {
   const allEntries: [string, ParamSpec][] = Object.entries(schema.parameters);
   const allEntriesWithAliases = [...allEntries];
 
+  /*
+    Construct a modified verson of allEntries that contains duplicate entries
+    for each alias of a given parameter
+
+    Example: if 'w' has an alias 'width', make a separate entry for 'width' with
+    the same spec value
+  */
   allEntries.map(([_key, value]) => {
     if ('aliases' in value) {
-      let cleanedValue: any = value; // ideally, don't do this
-      value.aliases.map((alias) => {
-        delete cleanedValue?.aliases;
-        allEntriesWithAliases.push([alias, cleanedValue as ParamSpec])
+      value.aliases.map((alias: string) => {
+        /*
+          Take the current list of aliases, replace the current one inline with
+          the current key
+
+          Example:
+
+            txtlinecolor has aliases
+              [ 'txt-line-color', 'txt-line-clr', 'txtlineclr' ]
+
+            When creating an entry for 'txt-line-color', it should have the
+            following aliases: [ 'txtlinecolor', 'txt-line-clr', 'txtlineclr' ]
+
+        */
+        const cleanedValue = JSON.parse(JSON.stringify(value));
+        const currentAlias = cleanedValue.aliases;
+        const currentAliasIndex = currentAlias.indexOf(alias);
+        currentAlias[currentAliasIndex] = _key;
+        allEntriesWithAliases.push([alias, cleanedValue])
       })
     }
-  })
+  });
 
-  // allEntriesWithAliases.map(([k,v]) => {
-  //   console.log(k, v);
-  // });
-
-
-  // allEntries.filter(([_key, value]) => Object.).map(([_key, value]) => {
-  //   console.log('key', _key);
-  //   'aliases' in value ? console.log('aliases', value.aliases) : '';
-  //   // value.filter(aliases?.map(alias => console.log(alias))
-  // })
   return [
     getHexColorType(),
     getColorKeywordValueType(schema),
